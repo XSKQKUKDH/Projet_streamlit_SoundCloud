@@ -1,0 +1,3 @@
+soundcloud_lib
+requests
+tempfile
