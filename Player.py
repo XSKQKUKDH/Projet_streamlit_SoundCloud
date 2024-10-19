@@ -38,13 +38,9 @@ class Music:
     def play(self, url):
         def play_music():
             from Projet_streamlit import telecharger
-            # Supression des fichiers précédents
-            self.del_previous_file()
-            self.previous_file = None
 
             # Récupération et chargement de la musique à partir du lien
-            with streamlit.spinner("Downloading..."):
-                file = telecharger(url)
+            file = telecharger(url)
             self.mixer.music.load("Data/music.mp3")
             print("Lancement de la musique")
             self.previous_file = file
@@ -71,7 +67,7 @@ class Music:
                 print(self.state)
 
     def stop(self):
-        # Arrêt du lecteur et déchargement du lecteur
+        # Arrêt du lecteur et déchargement
         with self.lock:
             self.state = "stopped"
         self.mixer.music.stop()
