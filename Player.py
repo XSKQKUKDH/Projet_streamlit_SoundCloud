@@ -2,8 +2,6 @@ from turtle import st
 from pandas import get_dummies
 import pygame,threading
 import os
-import requests
-import tempfile
 import streamlit
 
 class Music:
@@ -39,13 +37,15 @@ class Music:
 
     def play(self, url):
         def play_music():
+            from Projet_streamlit import telecharger
             # Supression des fichiers précédents
             self.del_previous_file()
             self.previous_file = None
 
             # Récupération et chargement de la musique à partir du lien
-            file = self.get_music(url)
-            self.mixer.music.load(file)
+            with streamlit.spinner("Downloading..."):
+                file = telecharger(url)
+            self.mixer.music.load("Data/music.mp3")
             print("Lancement de la musique")
             self.previous_file = file
 
@@ -59,7 +59,7 @@ class Music:
         self.player_thread.start()
 
     def pause_unpause(self):
-        # Pause or unpause the music based on the current state
+        # Pause ou reprise de la musique selon l'état du lecteur
         with self.lock:
             if self.state == "playing":
                 self.mixer.music.pause()
@@ -71,19 +71,8 @@ class Music:
                 print(self.state)
 
     def stop(self):
-        # Stop the music and unload it from the player
+        # Arrêt du lecteur et déchargement du lecteur
         with self.lock:
             self.state = "stopped"
         self.mixer.music.stop()
 
-        # Delete unused previous files
-        self.del_previous_file()
-        self.previous_file = None
-
-    def get_music(self, url):
-        # Fetch temporary music file from the SoundCloud URL, then store it in memory
-        response = requests.get(url)
-        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
-        temp_file.write(response.content)
-        temp_file.close()
-        return temp_file.name
