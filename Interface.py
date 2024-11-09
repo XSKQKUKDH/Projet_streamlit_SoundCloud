@@ -5,7 +5,7 @@ if __name__ == "__main__":
         os.system(f"cd {str(os.path.abspath(__file__))[:-12]} & streamlit run Interface.py")
         quit()
 
-#Importation des librairies internes
+#Importation des librairies internes rzq
 from Player import Music
 from session_state_init import init
 #Importation def librairies externes
@@ -27,7 +27,7 @@ st.title("Bienvenue sur le projet SoundCloud!")
 with st.sidebar:
     st.subheader("Le lecteur streamlit")
     st.image("Data/music.jpg")
-    st.info("Réalisé par Arlind, Sacha et Lysandre")
+    st.info("Réalisé par Arlind, Sacha et Alexandre")
 
 st.divider()
 
