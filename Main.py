@@ -69,7 +69,6 @@ def settings():
 
 if player.state == "playing" or player.state == "paused":
     st.divider()
-    st.image(st.session_state["image"])
     st.info(f"Lecture : '{st.session_state['name']}' par {st.session_state['author']}")
     col1,col2,col3 = st.columns(3)
     col1.button("⏯️",on_click=player.pause_unpause)
