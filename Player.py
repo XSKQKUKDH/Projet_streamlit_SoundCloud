@@ -36,6 +36,7 @@ class Music:
             os.remove(self.previous_file)
 
     def play(self, url):
+        print("Runned play")
         import streamlit as st
         self.stop()
         st.session_state["name"] = st.session_state["temp_name"]

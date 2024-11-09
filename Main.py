@@ -1,9 +1,9 @@
-if __name__ == "__main__":
-    import sys,os
-    # Regarde si le programme est lancé avec streamlit, et le lance avec ce dernier si ce n'est pas le cas
-    if any("streamlit" in arg for arg in sys.argv):
-        os.system(f"cd {str(os.path.abspath(__file__))[:-12]} & streamlit run Interface.py")
-        quit()
+import os
+expected_path = os.path.abspath(os.path.dirname(__file__)).lower()
+current_path = os.getcwd().lower()
+if current_path != expected_path:
+    print(f"Not in correct directory, please get in '{expected_path}' instead of '{current_path}' and rerun")
+    quit()
 
 #Importation des librairies internes
 from Player import Music
@@ -69,8 +69,8 @@ def settings():
 
 if player.state == "playing" or player.state == "paused":
     st.divider()
-    st.info(f"Lecture : '{st.session_state['name']}' par {st.session_state['author']}")
     st.image(st.session_state["image"])
+    st.info(f"Lecture : '{st.session_state['name']}' par {st.session_state['author']}")
     col1,col2,col3 = st.columns(3)
     col1.button("⏯️",on_click=player.pause_unpause)
     col2.button("⏹️",on_click=player.stop)
