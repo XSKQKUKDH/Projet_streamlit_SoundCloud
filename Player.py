@@ -42,7 +42,6 @@ class Music:
         st.session_state["name"] = st.session_state["temp_name"]
         st.session_state["author"] = st.session_state["temp_author"]
         st.session_state["duration"] = st.session_state["temp_duration"]
-        st.session_state["image"] = st.session_state["temp_image"]
         def play_music():
             from Projet_streamlit import telecharger
 

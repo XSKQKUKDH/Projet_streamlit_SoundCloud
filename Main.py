@@ -48,7 +48,7 @@ if st.session_state["search"]:
     st.session_state["temp_name"] = name
     st.session_state["temp_author"] = author
     st.session_state["temp_duration"] = seconds
-    st.session_state["temp_image"] = get_image(image_link)
+    st.session_state["image"] = get_image(image_link)
     time.sleep(1)
     bar.progress(100,"Fini!")
 
