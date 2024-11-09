@@ -35,7 +35,7 @@ def get_image(lien):
 
     response = requests.get(lien)
 
-    path = "Projet_streamlit_SoundCloud/Data/thumbnail.jpg"
+    path = "Data/thumbnail.jpg"
 
     if response.status_code == 200:
         image = response.content
