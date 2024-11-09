@@ -9,8 +9,9 @@ def recherche(query):
     duree = data["result"][0]["duration"]
     link = data["result"][0]["link"]
     auteur = data["result"][0]["channel"]["name"]
+    thumbnail = data["result"][0]["thumbnails"][0]["url"]
 
-    return (nom,auteur,duree,link)
+    return (nom,auteur,duree,link,thumbnail)
 
 def telecharger(lien):
     ydl_opts = {
@@ -26,4 +27,22 @@ def telecharger(lien):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         path = "Data/%(title)s.%(ext)s"
         ydl.download([lien])
+
+    return path
+
+def get_image(lien):
+    import requests
+
+    response = requests.get(lien)
+
+    path = "Projet_streamlit_SoundCloud/Data/thumbnail.jpg"
+
+    if response.status_code == 200:
+        image = response.content
+
+        with open(path,"wb") as file:
+            file.write(image)
+    else:
+        print(f"Code : {response}")
+
     return path

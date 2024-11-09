@@ -36,6 +36,12 @@ class Music:
             os.remove(self.previous_file)
 
     def play(self, url):
+        import streamlit as st
+        self.stop()
+        st.session_state["name"] = st.session_state["temp_name"]
+        st.session_state["author"] = st.session_state["temp_author"]
+        st.session_state["duration"] = st.session_state["temp_duration"]
+        st.session_state["image"] = st.session_state["temp_image"]
         def play_music():
             from Projet_streamlit import telecharger
 
@@ -71,4 +77,5 @@ class Music:
         with self.lock:
             self.state = "stopped"
         self.mixer.music.stop()
+        self.mixer.music.unload()
 

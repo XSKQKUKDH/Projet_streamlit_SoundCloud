@@ -1,5 +1,5 @@
 import streamlit
-s_list = ["search","music",'name','author','duration',]
+s_list = ["search","music",'name','author','duration','image']
 def init():
     for element in s_list:
         if element not in streamlit.session_state:

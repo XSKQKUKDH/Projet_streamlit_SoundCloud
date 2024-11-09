@@ -11,7 +11,7 @@ from session_state_init import init
 #Importation def librairies externes
 import streamlit as st
 
-from Projet_streamlit import recherche
+from Projet_streamlit import recherche, get_image
 
 init()
 
@@ -38,23 +38,25 @@ if st.session_state["search"]:
     bar = st.progress(0,"Recherche de la requête...")
     import time
     #Obtenir les données
-    name,author,duration,link = recherche(search_entry)
+    name,author,duration,link,image_link = recherche(search_entry)
     bar.progress(20,"Obtention des donnés")
     minute,seconds = duration.split(":")
     minute,seconds = (int(minute),int(seconds))
     seconds += minute*60
     bar.progress(60,"Convertion")
     bar.progress(80,"Convertion")
-    st.session_state["name"] = name
-    st.session_state["author"] = author
-    st.session_state["duration"] = seconds
+    st.session_state["temp_name"] = name
+    st.session_state["temp_author"] = author
+    st.session_state["temp_duration"] = seconds
+    st.session_state["temp_image"] = get_image(image_link)
     time.sleep(1)
     bar.progress(100,"Fini!")
 
-    col1_,col2_,col3_ = st.columns(3)
+    col1_,col2_,col3_,col4_ = st.columns(4)
     col1_.metric("Titre",name)
     col2_.metric("Auteur",author)
     col3_.metric("Durée",duration)
+    col4_.image(st.session_state["temp_image"])
 
     with st.spinner("Chargement..."):
         play_button = st.button("Ecouter",on_click=player.play,args=(link,))
@@ -68,6 +70,7 @@ def settings():
 if player.state == "playing" or player.state == "paused":
     st.divider()
     st.info(f"Lecture : '{st.session_state['name']}' par {st.session_state['author']}")
+    st.image(st.session_state["image"])
     col1,col2,col3 = st.columns(3)
     col1.button("⏯️",on_click=player.pause_unpause)
     col2.button("⏹️",on_click=player.stop)
