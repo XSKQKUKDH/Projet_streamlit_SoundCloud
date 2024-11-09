@@ -5,7 +5,7 @@ if __name__ == "__main__":
         os.system(f"cd {str(os.path.abspath(__file__))[:-12]} & streamlit run Interface.py")
         quit()
 
-#Importation des librairies internes rzq
+#Importation des librairies internes
 from Player import Music
 from session_state_init import init
 #Importation def librairies externes
