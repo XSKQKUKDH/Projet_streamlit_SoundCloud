@@ -35,8 +35,13 @@ class Music:
         if self.previous_file is not None:
             os.remove(self.previous_file)
 
+    def volume(self,vol:int):
+        self.mixer.music.set_volume(vol)
+
     def play(self, url):
         print("Runned play")
+        with open(r'Data\thumbnail.jpg','rb') as inp, open(r'Data\music_thumbnail.jpg','wb') as out:
+            out.write(inp.read())
         import streamlit as st
         self.stop()
         st.session_state["name"] = st.session_state["temp_name"]

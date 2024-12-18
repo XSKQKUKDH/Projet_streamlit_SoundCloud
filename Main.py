@@ -56,7 +56,7 @@ if st.session_state["search"]:
     col1_.metric("Titre",name)
     col2_.metric("Auteur",author)
     col3_.metric("Durée",duration)
-    col4_.image(st.session_state["temp_image"])
+    col4_.image(st.session_state["image"])
 
     with st.spinner("Chargement..."):
         play_button = st.button("Ecouter",on_click=player.play,args=(link,))
@@ -66,10 +66,13 @@ if st.session_state["search"]:
 @st.dialog("Settings")
 def settings():
     st.session_state["volume"] = st.slider("Volume",0,100,st.session_state["volume"])
+    save_button = st.button("Save",on_click=player.volume,args=(st.session_state["volume"],))
+
 
 if player.state == "playing" or player.state == "paused":
     st.divider()
     st.info(f"Lecture : '{st.session_state['name']}' par {st.session_state['author']}")
+    st.image(r'Data\music_thumbnail.jpg')
     col1,col2,col3 = st.columns(3)
     col1.button("⏯️",on_click=player.pause_unpause)
     col2.button("⏹️",on_click=player.stop)
